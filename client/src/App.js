@@ -16,26 +16,6 @@ const App = () => {
             <main>
                 <Container fluid>
                     <Row className="justify-content-md-center">
-                        {/*<Col md="5">*/}
-                        {/*    <h1>Test person form</h1>*/}
-                        {/*    <Tabs defaultActiveKey="upload" id="uncontrolled-tab-example">*/}
-                        {/*        <Tab eventKey="upload" title="Upload">*/}
-                        {/*            <ImageUploadForm*/}
-                        {/*                label="Select Image to Test"*/}
-                        {/*                type="file"*/}
-                        {/*                endpoint={recognize}*/}
-                        {/*            />*/}
-                        {/*        </Tab>*/}
-                        {/*        <Tab eventKey="url" title="URL">*/}
-                        {/*            <ImageUploadForm*/}
-                        {/*                label="Enter Image URL to Test"*/}
-                        {/*                type="text"*/}
-                        {/*                placeholder="Image address URL"*/}
-                        {/*                endpoint={recognize}*/}
-                        {/*            />*/}
-                        {/*        </Tab>*/}
-                        {/*    </Tabs>*/}
-                        {/*</Col>*/}
                         <Col md="5">
                             {/*<h2>Add Person</h2>*/}
                             <Tabs defaultActiveKey="uploadAdd" id="uncontrolled-tab-example">
@@ -43,7 +23,6 @@ const App = () => {
                                     <ImageUploadForm
                                         label="Select Image to Add"
                                         type="file"
-                                        endpoint={enroll}
                                     />
                                 </Tab>
                                 <Tab eventKey="urlAdd" title="URL">
@@ -51,7 +30,6 @@ const App = () => {
                                         label="Enter Image URL to Add"
                                         type="text"
                                         placeholder="Image address URL"
-                                        endpoint={enroll}
                                     />
                                 </Tab>
                             </Tabs>

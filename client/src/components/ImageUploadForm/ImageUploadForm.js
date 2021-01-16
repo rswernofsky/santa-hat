@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { Form, FormControl, Button } from 'react-bootstrap'
 import classes from './ImageUploadForm.module.css'
+import axios from 'axios'
 
 const ImageUploadForm = (props) => {
     let [galleryName, setGalleryName] = useState('friend')
@@ -28,52 +29,39 @@ const ImageUploadForm = (props) => {
         }
     }, [props.type]);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        let data = {
+            image: fileSrc
+        }
+
+        console.log(data);
+        axios.post(`/api/upload`, data)
+            .then(response => {
+                console.log("POST request worked");
+            })
+            .catch(e => {
+                console.log("POST request broke man");
+            })
+
+
+
+    }
+
     return (
-        <Form className="my-4">
+        <Form className="my-4" onSubmit={handleSubmit}>
             <Form.Row className="text-left">
                 <Form.Group>
                     <Form.Label>{props.label}</Form.Label>
-                    <Form.Text className="text-muted">
-                        Select upload gallery.
-                    </Form.Text>
-                    <Form.Check
-                        type="radio"
-                        label="Friend"
-                        checked={galleryName === "friend"}
-                        onChange={() => setGalleryName("friend")}
-                    />
-                    <Form.Check
-                        type="radio"
-                        label="Foe"
-                        checked={galleryName === "foe"}
-                        onChange={() => setGalleryName("foe")}
-                    />
                 </Form.Group>
             </Form.Row>
-            {props.endpoint === "enroll" &&
-            (<Form.Row className="text-left">
-                <Form.Group>
-                    <Form.Label>Name</Form.Label>
-                    <FormControl
-                        type="text"
-                        placeholder="Subject name"
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        required
-                    />
-                </Form.Group>
-            </Form.Row>)}
             <Form.Row>
                 <div className="input-group d-flex justify-content-center mb-3">
-                    <div className="input-group-prepend">
-                        <Button type="submit" variant="primary">
-                            Upload
-                        </Button>
-                    </div>
                     <div className={props.type === 'file' ? "custom-file" : ''}>
                         <label
                             className={props.type === 'file' ? "custom-file-label text-left" : 'text-center'}>
-                            {!file ? props.label : file.name}
+                            {file && file.name}
                         </label>
                         <input
                             required
@@ -83,12 +71,17 @@ const ImageUploadForm = (props) => {
                             onChange={(e) => fileStaging(e)}
                         />
                     </div>
+                    <div className="input-group-prepend">
+                        <Button type="submit" variant="primary">
+                            Upload
+                        </Button>
+                    </div>
                 </div>
             </Form.Row>
             <h2>Image Preview</h2>
             {fileSrc ?
                 <figure>
-                    <img class='Image'
+                    <img className={classes.Image}
                          alt="Your image"
                          src={fileSrc} />
                 </figure>
